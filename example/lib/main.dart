@@ -15,9 +15,14 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(title: const Text("Animated Text Example")),
         body: Center(
           child: AnimatedTextUltra(
-            text: "Hello from my package!",
+            texts: [
+              "Hello from my package!",
+              "Animated Text 😎",
+              "Made By Dikshit",
+            ],
             style: const TextStyle(fontSize: 28, color: Colors.blue),
-            duration: const Duration(seconds: 1),
+            duration: const Duration(seconds: 5),
+            loop: true, // keeps repeating
           ),
         ),
       ),
