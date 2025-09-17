@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
             duration: const Duration(seconds: 5),
             loop: true, // keeps repeating
             buttonName: "Text",
-            colors: Colors.black,
+            iconColors: Colors.black,
             onTap: (){
               print("object");
             },

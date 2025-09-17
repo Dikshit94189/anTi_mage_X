@@ -10,7 +10,7 @@ class AnimatedTextUltra extends StatefulWidget {
   final bool loop;
   final VoidCallback? onTap;
   final String? buttonName;
-  final Color? colors;
+  final Color? iconColors;
 
   const AnimatedTextUltra({
     super.key,
@@ -20,7 +20,7 @@ class AnimatedTextUltra extends StatefulWidget {
     this.loop = true,
     this.onTap,
     this.buttonName,
-    this.colors,
+    this.iconColors,
   });
 
   @override
@@ -88,8 +88,8 @@ class _AnimatedTextUltraState extends State<AnimatedTextUltra>
         SizedBox(height: 10),
         ElevatedButton.icon(
           onPressed: _onButtonPressed,
-          icon: Icon(Icons.favorite, color: widget.colors),
-          label: Text(widget.buttonName!) ,
+          icon: Icon(Icons.favorite, color: widget.iconColors),
+          label: Text(widget.buttonName! ) ,
         )
       ],
 
