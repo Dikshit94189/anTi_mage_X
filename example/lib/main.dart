@@ -23,6 +23,9 @@ class MyApp extends StatelessWidget {
             style: const TextStyle(fontSize: 28, color: Colors.blue),
             duration: const Duration(seconds: 5),
             loop: true, // keeps repeating
+            onTap: (){
+              print("object");
+            },
           ),
         ),
       ),

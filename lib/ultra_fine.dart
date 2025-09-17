@@ -8,13 +8,15 @@ class AnimatedTextUltra extends StatefulWidget {
   final TextStyle? style;
   final Duration duration;
   final bool loop;
+  final VoidCallback? onTap;
 
   const AnimatedTextUltra({
     super.key,
     required this.texts,
     this.style,
-    this.duration = const Duration(milliseconds: 1000),
+    this.duration = const Duration(milliseconds: 100),
     this.loop = true,
+    this.onTap
   });
 
   @override
@@ -51,6 +53,15 @@ class _AnimatedTextUltraState extends State<AnimatedTextUltra>
     });
   }
 
+  void _onButtonPressed() {
+    if(widget.onTap != null){
+      widget.onTap!();
+    }else{
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Button tapped!")),
+      );
+    }
+  }
 
   @override
   void dispose() {
@@ -60,12 +71,24 @@ class _AnimatedTextUltraState extends State<AnimatedTextUltra>
 
   @override
   Widget build(BuildContext context) {
-    return FadeTransition(
-      opacity: _animation,
-      child: Text(
-        widget.texts[_currentIndex],
-        style: widget.style,
-      ),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        FadeTransition(
+          opacity: _animation,
+          child: Text(
+            widget.texts[_currentIndex],
+            style: widget.style,
+          ),
+        ),
+        SizedBox(height: 10),
+        ElevatedButton.icon(
+          onPressed: _onButtonPressed,
+          icon: const Icon(Icons.favorite, color: Colors.white),
+          label: Text("data") ,
+        )
+      ],
+
     );
   }
 }
