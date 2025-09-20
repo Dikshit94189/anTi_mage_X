@@ -12,9 +12,12 @@ class AnimatedTextUltra extends StatefulWidget {
   final String? buttonName;
   final Color? iconColors;
   final bool showText;
+  final Widget? icon;
+
 
   const AnimatedTextUltra({
     super.key,
+    this.icon,
     this.showText = true,
     required this.texts,
     this.style,
@@ -128,7 +131,7 @@ class _AnimatedTextUltraState extends State<AnimatedTextUltra>
                       child: child,
                     );
                   },
-                  child: Icon(Icons.favorite, color: widget.iconColors),
+                  child: widget.icon ?? Icon(Icons.favorite, color: widget.iconColors),
                 ),
                 const SizedBox(width: 8), // spacing between icon and label (keeps same look)
                 Text(widget.buttonName ?? ""),

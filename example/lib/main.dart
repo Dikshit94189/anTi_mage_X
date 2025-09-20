@@ -15,12 +15,12 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(title: const Text("Animated Text Example")),
         body: Center(
           child: Container(
-            height: 50,
-            width: 100,
-            color: Colors.red,
+            // height: 50,
+            // width: 100,
+            color: Colors.white10,
             child: Center(
               child: AnimatedTextUltra(
-                showText: false,
+                showText: true,
                 texts: [
                   "Hello from my package!",
                   "Animated Text 😎",
@@ -29,7 +29,8 @@ class MyApp extends StatelessWidget {
                 style: const TextStyle(fontSize: 28, color: Colors.blue),
                 duration: const Duration(seconds: 5),
                 loop: true, // keeps repeating
-                buttonName: "Text",
+                buttonName: "Name",
+                icon: Icon(Icons.favorite,size: 40, color: Colors.red), // <-- customized icon
                 iconColors: Colors.black,
                 onTap: (){
                   print("object");
