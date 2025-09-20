@@ -11,9 +11,11 @@ class AnimatedTextUltra extends StatefulWidget {
   final VoidCallback? onTap;
   final String? buttonName;
   final Color? iconColors;
+  final bool showText;
 
   const AnimatedTextUltra({
     super.key,
+    this.showText = true,
     required this.texts,
     this.style,
     this.duration = const Duration(milliseconds: 100),
@@ -99,14 +101,16 @@ class _AnimatedTextUltraState extends State<AnimatedTextUltra>
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        FadeTransition(
-          opacity: _textAnimation,
-          child: Text(
-            widget.texts[_currentIndex],
-            style: widget.style,
+        if(widget.showText) ...[
+          FadeTransition(
+            opacity: _textAnimation,
+            child: Text(
+              widget.texts[_currentIndex],
+              style: widget.style,
+            ),
           ),
-        ),
-        const SizedBox(height: 10),
+          const SizedBox(height: 10),
+        ],
         GestureDetector(
           onTap: _onButtonPressed,
           behavior: HitTestBehavior.translucent, // ensures taps register even on transparent areas
