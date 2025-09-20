@@ -28,22 +28,42 @@ class AnimatedTextUltra extends StatefulWidget {
 }
 
 class _AnimatedTextUltraState extends State<AnimatedTextUltra>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<double> _animation;
+    with TickerProviderStateMixin {
+  late AnimationController _textController;
+  late Animation<double> _textAnimation;
+
+  late AnimationController _shakeController;
+  late Animation<double> _shakeAnimation;
+
   int _currentIndex = 0;
 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(vsync: this, duration: widget.duration);
-    _animation = CurvedAnimation(parent: _controller, curve: Curves.easeIn);
-    _startAnimation();
+
+    /// Fade animation for text
+    _textController = AnimationController(
+      vsync: this,
+      duration: widget.duration,
+    );
+    _textAnimation =
+        CurvedAnimation(parent: _textController, curve: Curves.easeIn);
+    _startTextAnimation();
+
+    /// Shake animation for button icon
+    _shakeController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+    )..repeat(reverse: true); // repeat forever (left-right)
+
+    _shakeAnimation = Tween<double>(begin: 0.9, end: 1.1).animate(
+      CurvedAnimation(parent: _shakeController, curve: Curves.easeInOut),
+    );
   }
 
-  void _startAnimation() {
-    _controller.forward(from: 0).whenComplete(() async {
-      await Future.delayed(const Duration(seconds: 5)); // small gap
+  void _startTextAnimation() {
+    _textController.forward(from: 0).whenComplete(() async {
+      await Future.delayed(const Duration(seconds: 5)); // gap
       if (mounted) {
         setState(() {
           if (_currentIndex < widget.texts.length - 1) {
@@ -52,15 +72,15 @@ class _AnimatedTextUltraState extends State<AnimatedTextUltra>
             _currentIndex = 0;
           }
         });
-        _startAnimation(); // run again for next text
+        _startTextAnimation();
       }
     });
   }
 
   void _onButtonPressed() {
-    if(widget.onTap != null){
+    if (widget.onTap != null) {
       widget.onTap!();
-    }else{
+    } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Button tapped!")),
       );
@@ -69,7 +89,8 @@ class _AnimatedTextUltraState extends State<AnimatedTextUltra>
 
   @override
   void dispose() {
-    _controller.dispose();
+    _textController.dispose();
+    _shakeController.dispose();
     super.dispose();
   }
 
@@ -79,20 +100,29 @@ class _AnimatedTextUltraState extends State<AnimatedTextUltra>
       mainAxisSize: MainAxisSize.min,
       children: [
         FadeTransition(
-          opacity: _animation,
+          opacity: _textAnimation,
           child: Text(
             widget.texts[_currentIndex],
             style: widget.style,
           ),
         ),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         ElevatedButton.icon(
           onPressed: _onButtonPressed,
-          icon: Icon(Icons.favorite, color: widget.iconColors),
-          label: Text(widget.buttonName! ) ,
-        )
+          icon: AnimatedBuilder(
+            animation: _shakeAnimation,
+            builder: (context, child) {
+              return Transform.scale(
+                scale: _shakeAnimation.value,
+                child: child,
+              );
+            },
+            child: Icon(Icons.favorite, color: widget.iconColors),
+          ),
+          label: Text(widget.buttonName ?? ""),
+        ),
       ],
-
     );
   }
 }
+
