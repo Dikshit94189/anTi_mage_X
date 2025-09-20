@@ -107,20 +107,32 @@ class _AnimatedTextUltraState extends State<AnimatedTextUltra>
           ),
         ),
         const SizedBox(height: 10),
-        ElevatedButton.icon(
-          onPressed: _onButtonPressed,
-          icon: AnimatedBuilder(
-            animation: _shakeAnimation,
-            builder: (context, child) {
-              return Transform.scale(
-                scale: _shakeAnimation.value,
-                child: child,
-              );
-            },
-            child: Icon(Icons.favorite, color: widget.iconColors),
+        GestureDetector(
+          onTap: _onButtonPressed,
+          behavior: HitTestBehavior.translucent, // ensures taps register even on transparent areas
+          child: Container(
+            color: Colors.transparent, // fully transparent background
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8), // optional, matches button spacing
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                AnimatedBuilder(
+                  animation: _shakeAnimation,
+                  builder: (context, child) {
+                    return Transform.scale(
+                      scale: _shakeAnimation.value,
+                      child: child,
+                    );
+                  },
+                  child: Icon(Icons.favorite, color: widget.iconColors),
+                ),
+                const SizedBox(width: 8), // spacing between icon and label (keeps same look)
+                Text(widget.buttonName ?? ""),
+              ],
+            ),
           ),
-          label: Text(widget.buttonName ?? ""),
-        ),
+        )
+
       ],
     );
   }
