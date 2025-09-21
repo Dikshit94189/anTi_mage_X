@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(title: const Text("Animated Text Example")),
+        appBar: AppBar(title: const Text("Animated Text")),
         body: Center(
           child: Container(
             // height: 50,
