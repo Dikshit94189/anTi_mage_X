@@ -13,6 +13,7 @@ class AnimatedTextUltra extends StatefulWidget {
   final Color? iconColors;
   final bool showText;
   final Widget? icon;
+  final Color? containerC;
 
 
   const AnimatedTextUltra({
@@ -26,6 +27,7 @@ class AnimatedTextUltra extends StatefulWidget {
     this.onTap,
     this.buttonName,
     this.iconColors,
+    this.containerC
   });
 
   @override
@@ -118,7 +120,7 @@ class _AnimatedTextUltraState extends State<AnimatedTextUltra>
           onTap: _onButtonPressed,
           behavior: HitTestBehavior.translucent, // ensures taps register even on transparent areas
           child: Container(
-            color: Colors.transparent, // fully transparent background
+            color: widget.containerC, // fully transparent background
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8), // optional, matches button spacing
             child: Row(
               mainAxisSize: MainAxisSize.min,

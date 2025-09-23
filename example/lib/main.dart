@@ -14,29 +14,23 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(title: const Text("Animated Text")),
         body: Center(
-          child: Container(
-            // height: 50,
-            // width: 100,
-            color: Colors.white10,
-            child: Center(
-              child: AnimatedTextUltra(
-                showText: true,
-                texts: [
-                  "Hello from my package!",
-                  "Animated Text 😎",
-                  "Made By Dikshit",
-                ],
-                style: const TextStyle(fontSize: 28, color: Colors.blue),
-                duration: const Duration(seconds: 5),
-                loop: true, // keeps repeating
-                buttonName: "Name",
-                icon: Icon(Icons.favorite,size: 40, color: Colors.red), // <-- customized icon
-                iconColors: Colors.black,
-                onTap: (){
-                  print("object");
-                },
-              ),
-            ),
+          child: AnimatedTextUltra(
+            showText: true,
+            texts: [
+              "Hello from my package!",
+              "Animated Text 😎",
+              "Made By Dikshit",
+            ],
+            style: const TextStyle(fontSize: 28, color: Colors.blue),
+            duration: const Duration(seconds: 5),
+            loop: true, // keeps repeating
+            containerC: Colors.teal,
+            buttonName: "Name",
+            icon: Icon(Icons.favorite,size: 40, color: Colors.red), // <-- customized icon
+            iconColors: Colors.black,
+            onTap: (){
+              print("object");
+            },
           ),
         ),
       ),
